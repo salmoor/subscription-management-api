@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PlansModule } from './plans/plans.module';
+import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { StripeModule } from './stripe/stripe.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { PlansModule } from './plans/plans.module';
     AuthModule,
     UsersModule,
     PlansModule,
+    SubscriptionsModule,
+    StripeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

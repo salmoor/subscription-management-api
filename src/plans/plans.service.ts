@@ -10,7 +10,7 @@ export class PlansService {
       description: 'Perfect for individuals and small projects',
       price: 9.99,
       features: ['Basic features', 'Email support', 'Limited access'],
-      stripePriceId: 'price_basic_monthly',
+      stripePriceId: 'price_1QuCPoPtGh2Gf6zeMDF5lKPB',
     },
     {
       id: 'standard',
@@ -23,7 +23,7 @@ export class PlansService {
         'Advanced features',
         'API access',
       ],
-      stripePriceId: 'price_standard_monthly',
+      stripePriceId: 'price_1QuCTbPtGh2Gf6zeeH7Lxm8W',
     },
     {
       id: 'premium',
@@ -37,7 +37,7 @@ export class PlansService {
         'Dedicated account manager',
         'Advanced analytics',
       ],
-      stripePriceId: 'price_premium_monthly',
+      stripePriceId: 'price_1QuCUMPtGh2Gf6ze3vtIZ4FV',
     },
   ];
 

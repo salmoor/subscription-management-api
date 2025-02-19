@@ -128,3 +128,67 @@ GET /plans
 ]
 ```
 
+### Subscription Endpoints
+
+#### Create Subscription
+Creates a new subscription for the authenticated user.
+
+\`\`\`
+POST /subscriptions
+Authorization: Bearer jwt_token
+\`\`\`
+
+**Request Body:**
+\`\`\`json
+{
+  "planId": "basic"
+}
+\`\`\`
+
+**Response (200 OK):**
+\`\`\`json
+{
+  "sessionId": "sessionId"
+}
+\`\`\`
+
+#### Get Current Subscription
+Retrieves the current subscription for the authenticated user.
+
+\`\`\`
+GET /subscriptions
+Authorization: Bearer jwt_token
+\`\`\`
+
+**Response (200 OK):**
+\`\`\`json
+{
+  "id": "subscription_id",
+  "userId": "user_id",
+  "planId": "basic",
+  "status": "active",
+  "stripeSubscriptionId": "sub_..."
+}
+\`\`\`
+
+#### Cancel Subscription
+Cancels the current subscription for the authenticated user.
+
+\`\`\`
+DELETE /subscriptions
+Authorization: Bearer jwt_token
+\`\`\`
+
+**Response (200 OK):**
+\`\`\`json
+{
+  "message": "Subscription cancelled successfully"
+}
+\`\`\`
+
+### Stripe Webhook
+Endpoint for handling Stripe webhook events.
+
+\`\`\`
+POST /subscriptions/webhook
+\`\`\`
