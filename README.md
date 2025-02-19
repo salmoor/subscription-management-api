@@ -16,6 +16,8 @@ MONGODB_URI=mongodb://localhost:27017/subscription-db
 JWT_SECRET=your_jwt_secret_key
 ```
 
+You can generate one using "openssl rand -hex 64"
+
 ### Installation Steps
 1. Clone the repository
 2. Install dependencies:
@@ -123,72 +125,62 @@ GET /plans
       "Limited access"
     ],
     "stripePriceId": "price_basic_monthly"
-  },
-  // ... other plans
+  }
 ]
 ```
 
 ### Subscription Endpoints
 
-#### Create Subscription
-Creates a new subscription for the authenticated user.
-
-\`\`\`
-POST /subscriptions
-Authorization: Bearer jwt_token
-\`\`\`
-
-**Request Body:**
-\`\`\`json
-{
-  "planId": "basic"
-}
-\`\`\`
-
-**Response (200 OK):**
-\`\`\`json
-{
-  "sessionId": "sessionId"
-}
-\`\`\`
-
 #### Get Current Subscription
 Retrieves the current subscription for the authenticated user.
 
-\`\`\`
+```
 GET /subscriptions
 Authorization: Bearer jwt_token
-\`\`\`
+```
 
 **Response (200 OK):**
-\`\`\`json
+```json
 {
   "id": "subscription_id",
   "userId": "user_id",
-  "planId": "basic",
+  "planId": "plan_id",
   "status": "active",
-  "stripeSubscriptionId": "sub_..."
+  "stripeSubscriptionId": "sub_...",
+  "currentPeriodEnd": "2024-03-19T00:00:00.000Z",
+  "createdAt": "2024-02-19T00:00:00.000Z"
 }
-\`\`\`
+```
+
+**Response (404 Not Found):** When no active subscription exists
+```json
+{
+  "statusCode": 404,
+  "message": "No active subscription found",
+  "error": "Not Found"
+}
+```
 
 #### Cancel Subscription
 Cancels the current subscription for the authenticated user.
 
-\`\`\`
+```
 DELETE /subscriptions
 Authorization: Bearer jwt_token
-\`\`\`
+```
 
 **Response (200 OK):**
-\`\`\`json
+```json
 {
   "message": "Subscription cancelled successfully"
 }
-\`\`\`
+```
 
-### Stripe Webhook
-Endpoint for handling Stripe webhook events.
-
-\`\`\`
-POST /subscriptions/webhook
-\`\`\`
+**Response (404 Not Found):** When no active subscription exists
+```json
+{
+  "statusCode": 404,
+  "message": "No active subscription found",
+  "error": "Not Found"
+}
+```
