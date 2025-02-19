@@ -100,3 +100,31 @@ For protected endpoints, include the JWT token in the Authorization header:
 Authorization: Bearer your_jwt_token
 ```
 
+### Subscription Plans
+
+#### Get All Plans
+Retrieves all available subscription plans.
+
+```
+GET /plans
+```
+
+**Response (200 OK):**
+```json
+[
+  {
+    "id": "basic",
+    "name": "Basic Plan",
+    "description": "Perfect for individuals and small projects",
+    "price": 9.99,
+    "features": [
+      "Basic features",
+      "Email support",
+      "Limited access"
+    ],
+    "stripePriceId": "price_basic_monthly"
+  },
+  // ... other plans
+]
+```
+
