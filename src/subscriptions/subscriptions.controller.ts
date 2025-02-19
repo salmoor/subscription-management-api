@@ -7,18 +7,17 @@ import {
   Headers,
   RawBodyRequest,
   BadRequestException,
+  Get,
+  Delete,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { StripeService } from '../stripe/stripe.service';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
+import { SubscriptionsService } from './subscriptions.service';
 
 interface CheckoutSessionDto {
   priceId: string;
-}
-
-interface CancelSubscriptionDto {
-  subscriptionId: string;
 }
 
 @Controller('subscriptions')
@@ -26,6 +25,7 @@ export class SubscriptionsController {
   constructor(
     private readonly stripeService: StripeService,
     private readonly configService: ConfigService,
+    private readonly subscriptionsService: SubscriptionsService,
   ) {}
 
   @UseGuards(JwtAuthGuard)
@@ -39,21 +39,30 @@ export class SubscriptionsController {
       throw new BadRequestException('FRONTEND_URL not configured');
     }
 
-    const sessionId = await this.stripeService.createCheckoutSession(
+    const session = await this.stripeService.createCheckoutSession(
       req.user.userId,
       body.priceId,
       `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       `${baseUrl}/cancel`,
     );
 
-    return { sessionId };
+    return { sessionId: session.id };
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('cancel')
-  async cancelSubscription(@Body() body: CancelSubscriptionDto) {
-    await this.stripeService.cancelSubscription(body.subscriptionId);
-    return { status: 'canceled' };
+  @Get()
+  async getCurrentSubscription(@Req() req: Request & { user: { userId: string } }) {
+    const subscription = await this.subscriptionsService.getUserSubscription(
+      req.user.userId,
+    );
+    return subscription;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete()
+  async cancelSubscription(@Req() req: Request & { user: { userId: string } }) {
+    await this.subscriptionsService.cancelSubscription(req.user.userId);
+    return { message: 'Subscription cancelled successfully' };
   }
 
   @Post('webhook')
