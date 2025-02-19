@@ -6,6 +6,7 @@
 - Node.js
 - MongoDB instance
 - npm
+- [Stripe CLI](https://docs.stripe.com/stripe-cli) (for local testing)
 
 ### Environment Variables
 Create a `.env` file in the root directory with the following variables:
@@ -19,7 +20,7 @@ STRIPE_WEBHOOK_SECRET=whsec_0d80c9188c84c624d4c439149b33e95f9d3cb70d5352abac650c
 FRONTEND_URL=http://localhost:3000
 ```
 
-You can generate one using "openssl rand -hex 64"
+- You can generate JWT_SECRET using "openssl rand -hex 64"
 
 ### Installation Steps
 1. Clone the repository
@@ -128,6 +129,12 @@ GET /plans
       "Limited access"
     ],
     "stripePriceId": "price_basic_monthly"
+  },
+  {
+      ...
+  },
+  {
+      ...
   }
 ]
 ```
