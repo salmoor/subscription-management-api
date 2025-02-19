@@ -7,10 +7,6 @@
 - MongoDB instance
 - npm
 
-### Stripe Test Keys
-STRIPE_SECRET_KEY=sk_test_51QuAx6PtGh2Gf6zeHgkfoIDpYSaxea9L0Kc2fF9hzBBlqVJcIPugfJjvGGeVKwHneEGkDjyB7bUjLmhR8xvPNRW60048bA9zG4
-STRIPE_WEBHOOK_SECRET=whsec_0d80c9188c84c624d4c439149b33e95f9d3cb70d5352abac650c0dd63ba46db7
-
 ### Environment Variables
 Create a `.env` file in the root directory with the following variables:
 
@@ -18,6 +14,9 @@ Create a `.env` file in the root directory with the following variables:
 PORT=3000
 MONGODB_URI=mongodb://localhost:27017/subscription-db
 JWT_SECRET=your_jwt_secret_key
+STRIPE_SECRET_KEY=sk_test_51QuAx6PtGh2Gf6zeHgkfoIDpYSaxea9L0Kc2fF9hzBBlqVJcIPugfJjvGGeVKwHneEGkDjyB7bUjLmhR8xvPNRW60048bA9zG4
+STRIPE_WEBHOOK_SECRET=whsec_0d80c9188c84c624d4c439149b33e95f9d3cb70d5352abac650c0dd63ba46db7
+FRONTEND_URL=http://localhost:3000
 ```
 
 You can generate one using "openssl rand -hex 64"
